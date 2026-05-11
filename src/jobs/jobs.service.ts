@@ -21,7 +21,7 @@ export class JobsService {
     const subscribers = await this.subscribersService.findActive();
 
     for (const sub of subscribers) {
-      const message = `Hello ${sub.name},\nJust a reminder that Youth service is on Sunday by 9AM. \nCome believing God for something, God loves you, see you there!!`;
+      const message = `Hello ${sub.name},\nJust a reminder that Youth service is on Sunday by 9AM. \nGod loves you, see you there!!`;
       await this.smsService.send(sub.phoneNumber, message, sub.name);
     }
 
@@ -37,7 +37,7 @@ export class JobsService {
     const subscribers = await this.subscribersService.findActive();
 
     for (const sub of subscribers) {
-      const message = `Good morning ${sub.name}, service starts in 1 hour. God bless you 🙌`;
+      const message = `Rise and shine, ${sub.name}! Service starts in 30 minutes. God loves you!`;
       await this.smsService.send(sub.phoneNumber, message, sub.name);
     }
 

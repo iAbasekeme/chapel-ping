@@ -5,9 +5,15 @@ import { JobsService } from './jobs.service';
 export class JobsController {
   constructor(private readonly jobsService: JobsService) {}
 
-  @Post('trigger')
+  @Post('trigger/saturday-reminder')
   async trigger() {
     await this.jobsService.sendSaturdayReminder();
     return { message: 'Reminder triggered successfully' };
+  }
+
+  @Post('trigger/Sunday-morning-reminder')
+  async triggerSundayMorningReminder() {
+    await this.jobsService.sendSundayMorningReminder();
+    return { message: 'Sunday morning reminder triggered successfully' };
   }
 }
