@@ -13,16 +13,15 @@ export class JobsService {
   ) {}
 
   /**
-   * Saturday 8:00 PM WAT (UTC+1) → "0 19 * * 6" in UTC
-   * WAT is UTC+1, so 20:00 WAT = 19:00 UTC
+   * Saturday 8:40 PM WAT → "40 20 * * 6" in Africa/Lagos timezone
    */
-  @Cron('0 19 * * 6', { timeZone: 'Africa/Lagos' })
+  @Cron('40 20 * * 6', { timeZone: 'Africa/Lagos' })
   async sendSaturdayReminder(): Promise<void> {
     this.logger.log('Running Saturday evening reminder job...');
     const subscribers = await this.subscribersService.findActive();
 
     for (const sub of subscribers) {
-      const message = `Hey ${sub.name}, just a reminder that church service is tomorrow by 9AM. See you there 🙏`;
+      const message = `Hello ${sub.name},\nJust a reminder that Youth service is on Sunday by 9AM. \nCome believing God for something, God loves you, see you there!!`;
       await this.smsService.send(sub.phoneNumber, message, sub.name);
     }
 
@@ -30,9 +29,9 @@ export class JobsService {
   }
 
   /**
-   * Sunday 8:00 AM WAT (UTC+1) → "0 8 * * 0" in Africa/Lagos timezone
+   * Sunday 8:30 AM WAT → "30 8 * * 0" in Africa/Lagos timezone
    */
-  @Cron('0 8 * * 0', { timeZone: 'Africa/Lagos' })
+  @Cron('30 8 * * 0', { timeZone: 'Africa/Lagos' })
   async sendSundayMorningReminder(): Promise<void> {
     this.logger.log('Running Sunday morning reminder job...');
     const subscribers = await this.subscribersService.findActive();

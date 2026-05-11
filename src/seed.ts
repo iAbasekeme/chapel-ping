@@ -4,9 +4,10 @@ import { AppDataSource } from './data-source';
 import { Subscriber } from './subscribers/subscriber.entity';
 
 const subscribers = [
-  { name: 'Ada', phoneNumber: '' },
-  { name: 'Emeka', phoneNumber: '' },
-  { name: 'Ngozi', phoneNumber: '' },
+  { name: 'Able', phoneNumber: '2347042232834' },
+  { name: 'Charles', phoneNumber: '2348032738733' },
+  { name: 'Naomi', phoneNumber: '2348034884661' },
+  { name: 'Rachie', phoneNumber: '2348139036191' }
 ];
 
 async function seed() {
