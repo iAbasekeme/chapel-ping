@@ -15,7 +15,7 @@ export class JobsService {
   /**
    * Saturday 7:50 PM WAT → "50 19 * * 6" in Africa/Lagos timezone
    */
-  @Cron('50 19 * * 6', { timeZone: 'Africa/Lagos' })
+  // @Cron('50 19 * * 6', { timeZone: 'Africa/Lagos' })
   async sendSaturdayReminder(): Promise<void> {
     this.logger.log('Running Saturday evening reminder job...');
     const subscribers = await this.subscribersService.findActive();
@@ -37,7 +37,7 @@ export class JobsService {
     const subscribers = await this.subscribersService.findActive();
 
     for (const sub of subscribers) {
-      const message = `Good morning ${sub.name},\n\nA beautiful Sunday awaits. Youth Service starts in 30 minutes. We'd love to worship with you.\n\nGod loves you.\nFoursquare Gospel Church, Essien`;
+      const message = `Rise and shine, ${sub.name}!\n\nA beautiful Sunday awaits. Youth Service starts in 30 minutes. We'd love to worship with you.\n\nGod loves you.\nFoursquare Gospel Church, Essien`;
       await this.smsService.send(sub.phoneNumber, message, sub.name);
     }
 
