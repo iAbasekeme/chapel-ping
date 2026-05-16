@@ -13,15 +13,15 @@ export class JobsService {
   ) {}
 
   /**
-   * Saturday 8:40 PM WAT → "40 20 * * 6" in Africa/Lagos timezone
+   * Saturday 7:50 PM WAT → "50 19 * * 6" in Africa/Lagos timezone
    */
-  @Cron('40 20 * * 6', { timeZone: 'Africa/Lagos' })
+  @Cron('50 19 * * 6', { timeZone: 'Africa/Lagos' })
   async sendSaturdayReminder(): Promise<void> {
     this.logger.log('Running Saturday evening reminder job...');
     const subscribers = await this.subscribersService.findActive();
 
     for (const sub of subscribers) {
-      const message = `Hello ${sub.name},\nJust a reminder that Youth service is on Sunday by 9AM. \nGod loves you, see you there!!`;
+      const message = `Hello ${sub.name},\n\nSunday is almost here! Join us for Youth Service at 9AM, come expecting great things.\n\nGod loves you, and we can't wait to see you!\n\nCourtesy: Foursquare Gospel Church, Essien`;
       await this.smsService.send(sub.phoneNumber, message, sub.name);
     }
 
@@ -37,7 +37,7 @@ export class JobsService {
     const subscribers = await this.subscribersService.findActive();
 
     for (const sub of subscribers) {
-      const message = `Rise and shine, ${sub.name}! Service starts in 30 minutes. God loves you!`;
+      const message = `Good morning ${sub.name},\n\nA beautiful Sunday awaits. Youth Service starts in 30 minutes. We'd love to worship with you.\n\nGod loves you.\nFoursquare Gospel Church, Essien`;
       await this.smsService.send(sub.phoneNumber, message, sub.name);
     }
 
