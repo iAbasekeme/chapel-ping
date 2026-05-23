@@ -1,8 +1,4 @@
-import 'dotenv/config';
-import 'reflect-metadata';
-import { In } from 'typeorm';
-import { AppDataSource } from './data-source';
-import { Subscriber } from './subscribers/subscriber.entity';
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 const subscribers = [
   { name: 'Able', phoneNumber: '2347042232834' },
@@ -38,7 +34,7 @@ const subscribers = [
   { name: 'Philomena Charles', phoneNumber: '2347036960182' },
   { name: 'Pastor Cobham', phoneNumber: '2348032548394' },
   { name: 'Etim Sunday', phoneNumber: '2347016655679' },
-  { name: 'Comfort S. Etim', phoneNumber: '2348144703548' },
+  { name: 'Comfort S. Etim', phoneNumber: '2348124702548' },
   { name: 'Stanley Edet', phoneNumber: '2348089092572' },
   { name: 'Roseline Christopher', phoneNumber: '2347038694724' },
   { name: 'Mercy Moses Asuquo', phoneNumber: '2348020882819' },
@@ -93,38 +89,32 @@ function phoneVariants(phoneNumber: string): string[] {
   return Array.from(new Set([normalized, `+${normalized}`, local]));
 }
 
-async function seed() {
-  await AppDataSource.initialize();
-  const repo = AppDataSource.getRepository(Subscriber);
-  const seenPhoneNumbers = new Set<string>();
+export class SeedSubscribers1779490000000 implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    for (const subscriber of subscribers) {
+      const [phoneNumber] = phoneVariants(subscriber.phoneNumber);
+      const existing = await queryRunner.query(
+        `SELECT id FROM "subscribers" WHERE phone_number = ANY($1) LIMIT 1`,
+        [phoneVariants(phoneNumber)],
+      );
 
-  for (const s of subscribers) {
-    const phoneNumber = phoneVariants(s.phoneNumber)[0];
+      if (existing.length > 0) {
+        continue;
+      }
 
-    if (seenPhoneNumbers.has(phoneNumber)) {
-      console.log(`Skipped (duplicate in seed): ${s.name} (${phoneNumber})`);
-      continue;
-    }
-
-    seenPhoneNumbers.add(phoneNumber);
-
-    const exists = await repo.findOne({
-      where: { phoneNumber: In(phoneVariants(phoneNumber)) },
-    });
-
-    if (!exists) {
-      await repo.save(repo.create({ ...s, phoneNumber }));
-      console.log(`Added: ${s.name} (${phoneNumber})`);
-    } else {
-      console.log(`Skipped (already exists): ${s.name} (${phoneNumber})`);
+      await queryRunner.query(
+        `INSERT INTO "subscribers" ("name", "phone_number", "active") VALUES ($1, $2, true)`,
+        [subscriber.name, phoneNumber],
+      );
     }
   }
 
-  await AppDataSource.destroy();
-  console.log('Seeding done.');
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    for (const subscriber of subscribers) {
+      await queryRunner.query(
+        `DELETE FROM "subscribers" WHERE phone_number = ANY($1)`,
+        [phoneVariants(subscriber.phoneNumber)],
+      );
+    }
+  }
 }
-
-seed().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
