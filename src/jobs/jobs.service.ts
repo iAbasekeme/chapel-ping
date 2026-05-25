@@ -10,7 +10,7 @@ export class JobsService {
   constructor(
     private readonly subscribersService: SubscribersService,
     private readonly smsService: SmsService,
-  ) {}
+  ) { }
 
   /**
    * Saturday 7:50 PM WAT → "50 19 * * 6" in Africa/Lagos timezone
@@ -37,7 +37,7 @@ export class JobsService {
     const subscribers = await this.subscribersService.findActive();
 
     for (const sub of subscribers) {
-      const message = `Rise and shine, ${sub.name}!\n\nA beautiful Sunday awaits. Youth Service starts in less than 30 minutes. We'd love to worship with you.\n\nGod loves you.\nFoursquare Gospel Church, Essien`;
+      const message = `Rise and shine, ${sub.name}!\n\nA beautiful Sunday awaits. Service starts in less than 30 minutes. We'd love to worship with you.\n\nGod loves you.\nFoursquare Gospel Church, Essien`;
       await this.smsService.send(sub.phoneNumber, message, sub.name);
     }
 
