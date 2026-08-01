@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-const subscribers = [
+export const subscribers = [
   { name: 'Able', phoneNumber: '2347042232834' },
-  { name: 'Charles Cook Etim', phoneNumber: '2348032738733' },
+  { name: 'Charles orok Etim', phoneNumber: '2348032738733' },
   { name: 'Elder Naomi Bassey', phoneNumber: '2348034884661' },
   { name: 'Rachie', phoneNumber: '2348139036191' },
   { name: 'Victoria', phoneNumber: '2349031922677' },
@@ -21,7 +21,7 @@ const subscribers = [
   { name: 'Asuquo Ruth Michael', phoneNumber: '2347053838612' },
   { name: 'Iniedy Patience Umoh', phoneNumber: '2348108316732' },
   { name: 'Gideon', phoneNumber: '2348123073514' },
-  { name: 'Eti Bella Daniel', phoneNumber: '2348161126626' },
+  { name: 'Etta Bella Daniel', phoneNumber: '2348161126626' },
   { name: 'Solomon', phoneNumber: '2348160136935' },
   { name: 'Emediong', phoneNumber: '2348052117053' },
   { name: 'Victor', phoneNumber: '2347026601452' },
@@ -79,7 +79,13 @@ const subscribers = [
   { name: 'Blessing Michael', phoneNumber: '2347063336540' },
   { name: 'Christopher Okon Ibuk', phoneNumber: '2348087873355' },
   { name: 'Ogar Regina Archiane', phoneNumber: '2349129039663' },
-  { name: 'Tretsea Solomon', phoneNumber: '2349048649997' },
+  { name: 'Tertsea Solomon', phoneNumber: '2349048649997' },
+  { name: 'Kelvin Paul', phoneNumber: '2348140017835' },
+  { name: 'Happiness', phoneNumber: '2348147267592' },
+  { name: 'Friday Enang', phoneNumber: '2347084766404' },
+  { name: 'Esther', phoneNumber: '2349123294289' },
+  { name: 'Obeten Bright', phoneNumber: '2348069257587' },
+  { name: 'Eme Ayi', phoneNumber: '2348036717998' },
 ];
 
 function phoneVariants(phoneNumber: string): string[] {
