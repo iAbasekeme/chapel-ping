@@ -23,7 +23,7 @@ export class JobsService {
   async sendSaturdayReminder(): Promise<void> {
     this.logger.log('Running Saturday evening reminder job...');
     for (const [index, sub] of subscribers.entries()) {
-      const message = `Hello ${sub.name},\n\nSunday is almost here! Join us at 8AM Tomorrow, come expecting great things from the Lord.\n\nGod loves you, and we can't wait to see you!\n\nCourtesy: Foursquare Gospel Church, Essien Essien Street, Calabar.`;
+      const message = `Hello ${sub.name},\n\nSunday is almost here! Join us at 8AM Tomorrow, come expecting great things from the Lord.\n\nGod loves you, and we can't wait to see you!\n\nCourtesy: Foursquare Gospel Church, 22 Essien Street, Calabar.`;
       await this.smsService.send(sub.phoneNumber, message, sub.name);
       if (index < subscribers.length - 1) await this.pauseBetweenMessages();
     }
@@ -38,7 +38,7 @@ export class JobsService {
   async sendSundayMorningReminder(): Promise<void> {
     this.logger.log('Running Sunday morning reminder job...');
     for (const [index, sub] of subscribers.entries()) {
-      const message = `Rise and shine, ${sub.name}!\n\nA beautiful Sunday awaits. Service starts in less than 30 minutes. We'd love to worship with you.\n\nGod loves you.\nFoursquare Gospel Church, Essien`;
+      const message = `Rise and shine, ${sub.name}!\n\nA beautiful Sunday awaits. Service starts in less than 30 minutes. We'd love to worship with you.\n\nGod loves you.\n\nCourtesy: Foursquare Gospel Church, 22 Essien Street, Calabar.`;
       await this.smsService.send(sub.phoneNumber, message, sub.name);
       if (index < subscribers.length - 1) await this.pauseBetweenMessages();
     }
