@@ -38,7 +38,7 @@ export class JobsService {
   async sendSundayMorningReminder(): Promise<void> {
     this.logger.log('Running Sunday morning reminder job...');
     for (const [index, sub] of subscribers.entries()) {
-      const message = `Good morning, ${sub.name}!\n\nToday is a fresh opportunity to experience God's love, strength, and peace. Come with an expectant heart, there is a blessing with your name on it.\n\nService starts at 8AM, and we'd love to worship with you.\n\nCourtesy: Foursquare Gospel Church, 22 Essien Street, Calabar.`;
+      const message = `Good morning, ${sub.name}!\n\nToday is a fresh opportunity to experience God's love, strength, and peace. Come with an expectant heart, there is a blessing with ${sub.name} on it.\n\nService starts at 8AM, and we'd love to worship with you.\n\nCourtesy: Foursquare Gospel Church, 22 Essien Street, Calabar.`;
       await this.smsService.send(sub.phoneNumber, message, sub.name);
       if (index < subscribers.length - 1) await this.pauseBetweenMessages();
     }
